@@ -6,27 +6,24 @@ using UnityEngine.UI;
 public class PowerBar : MonoBehaviour {
 
     public Transform LoadingBar;
-    Color Bar;
+    int red, green, blue, alpha;
+    float Perfect = 90;
     [SerializeField] private float currentAmount;
     [SerializeField]private float speed;
-    // Use this for initialization
-    void Start () {
-        Bar = LoadingBar.GetComponent<Image>().color;
-
-    }
-	
-	// Update is called once per frame
+    
 	void Update () {
 		
         if (currentAmount < 100)
         {
+            LoadingBar.GetComponent<Image>().color = new Color(255, 0, 0, 255);
             currentAmount += speed * Time.deltaTime;
-            if (currentAmount > 90 && currentAmount < 100)
+             if (currentAmount > Perfect && currentAmount < (Perfect + 10))
+             {
+                LoadingBar.GetComponent<Image>().color = new Color32(0, 255, 0, 255);
+             }
+             if (currentAmount > 60 && currentAmount < 90)
             {
-                Bar.g = 255;
-                Bar.r = 0;
-                Bar.b = 0;
-               
+               LoadingBar.GetComponent<Image>().color = new Color32(0, 09, 255, 255);
             }
         }
         LoadingBar.GetComponent<Image>().fillAmount = currentAmount / 100;
