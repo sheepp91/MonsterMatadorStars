@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class MonsterScript : MonoBehaviour {
 
+    public Transform player;
     public float speed;
 
-	void Start () {
-		
-	}
+    private Vector3 playerPos;
+    private Vector3 initialMonsterPos;
+    private float startTime;
+    private float journeyLength;
+
+    void Start () {
+        playerPos = player.position;
+        initialMonsterPos = transform.position;
+        startTime = Time.time;
+        journeyLength = Vector3.Distance(initialMonsterPos, playerPos);
+    }
 	
 	void Update () {
-        Vector3 temp = this.transform.position;
-        temp.x += speed;
-        this.transform.position = temp;
+        float distCovered = (Time.time - startTime) * speed;
+        float fracJourney = distCovered / journeyLength;
+        transform.position = Vector3.Lerp(initialMonsterPos, playerPos, fracJourney);
     }
 }
