@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerHit : MonoBehaviour {
 
     public float flyOffSpeed;
+    public float flyOffSpinSpeed;
 
     private Transform currentMonster;
     private MonsterMove monsterMove;
@@ -21,6 +22,10 @@ public class PlayerHit : MonoBehaviour {
             tempPos.x += flyOffSpeed;
             tempPos.y += flyOffSpeed;
             transform.position = tempPos;
+
+            Vector3 tempRot = transform.rotation.eulerAngles;
+            tempRot.z -= flyOffSpinSpeed;
+            transform.rotation = Quaternion.Euler(tempRot);
         }
     }
 }
