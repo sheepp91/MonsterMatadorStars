@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class MonsterMove : MonoBehaviour {
 
+    public GameController gameController;
     public Transform player;
     public float speed;
+    public float percentageOfJourney;
 
     [HideInInspector]
     public bool hitPlayer = false;
@@ -15,6 +17,7 @@ public class MonsterMove : MonoBehaviour {
     private Vector3 finalPos;
     private float startTime;
     private float journeyLength;
+    private float distanceToPlayer;
 
     void Start() {
         playerPos = player.position;
@@ -22,7 +25,8 @@ public class MonsterMove : MonoBehaviour {
         finalPos = playerPos;
         finalPos.x += 5;
         startTime = Time.time;
-        journeyLength = Vector3.Distance(initialMonsterPos, playerPos);
+        journeyLength = Vector3.Distance(initialMonsterPos, finalPos);
+        distanceToPlayer = Vector3.Distance(initialMonsterPos, playerPos);
     }
 
     void Update() {
@@ -30,7 +34,9 @@ public class MonsterMove : MonoBehaviour {
         float fracJourney = distCovered / journeyLength;
         transform.position = Vector3.Lerp(initialMonsterPos, finalPos, fracJourney);
 
-        if (transform.position.x >= playerPos.x) {
+        percentageOfJourney = distCovered / distanceToPlayer;
+
+        if (percentageOfJourney > 1.0f) {
             hitPlayer = true;
         }
     }

@@ -13,7 +13,7 @@ public class PlayerHit : MonoBehaviour {
     }
 
     void Update() {
-        if (currentMonster.GetComponent<MonsterMove>().hitPlayer) {
+        if (monsterMove.hitPlayer) {
             print("Player Got Hit!");
         }
     }
