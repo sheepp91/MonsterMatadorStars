@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\MonsterMove.cs" />
     <Compile Include="Assets\Scripts\PlayerHit.cs" />
+    <Compile Include="Assets\Scripts\PlayerRaiseFlag.cs" />
     <Compile Include="Assets\Scripts\PowerBar.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
