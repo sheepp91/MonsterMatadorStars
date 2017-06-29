@@ -6,12 +6,16 @@ public class PlayerRaiseFlag : MonoBehaviour {
     [HideInInspector]
     public bool raisedFlag = false;
 
-	void Start () {
-		
-	}
+    private MonsterMove monsterMove;
+    private Transform currentMonster;
+
+    void Start () {
+        currentMonster = GameObject.FindWithTag("Monster").transform;
+        monsterMove = currentMonster.GetComponent<MonsterMove>();
+    }
 	
 	void Update () {
-		if (Input.GetKeyDown("space")) {
+		if (Input.GetKeyDown("space") && !monsterMove.hitPlayer) {
             print("Lift flag!");
             raisedFlag = true;
         }

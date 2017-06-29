@@ -17,7 +17,6 @@ public class PlayerHit : MonoBehaviour {
 
     void Update() {
         if (monsterMove.hitPlayer) {
-            print("Player Got Hit!");
             Vector3 tempPos = transform.position;
             tempPos.x += flyOffSpeed;
             tempPos.y += flyOffSpeed;
