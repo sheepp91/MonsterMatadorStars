@@ -17,6 +17,7 @@ public class PlayerRaiseFlag : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown("space") && !monsterMove.hitPlayer) {
             print("Lift flag!");
+            print(monsterMove.percentageOfJourney);
             raisedFlag = true;
         }
 	}
