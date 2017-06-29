@@ -10,6 +10,7 @@ public class MonsterMove : MonoBehaviour {
     public Transform monsterStopAfterHitPosition;
     public Transform monsterStopAfterMissPosition;
     public float percentageOfJourney;
+    public PowerBar powerBarScript;
 
     [HideInInspector]
     public bool hitPlayer = false;
@@ -44,7 +45,7 @@ public class MonsterMove : MonoBehaviour {
         percentageOfJourney = distCovered / distanceToPlayer;
 
         // If percentage if journey reaches 100%, the monster hit the player
-        if (percentageOfJourney > 1.0f && !player.GetComponent<PlayerRaiseFlag>().raisedFlag) {
+        if (percentageOfJourney >= 1.0f && powerBarScript.powerBarColor == PowerBar.E_COLOR.RED) {
             hitPlayer = true;
             transform.position = Vector3.Lerp(initialMonsterPos, monsterStopAfterHitPosition.position, fracJourneyIfHit);
             
