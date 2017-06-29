@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
-    public int currentLevel = 1;
+    public int score = 0;
     public PowerBar powerBar;
+    //public Transform powerBarTransform;
     public Transform monsterSpawnLocation;
     public GameObject defaultMonsterPrefab;
 
@@ -20,8 +21,8 @@ public class GameController : MonoBehaviour {
         monsterMove = currentMonster.GetComponent<MonsterMove>();
         player = GameObject.FindWithTag("Player").transform;
         playerHit = player.GetComponent<PlayerHit>();
-
-        monsterMove.currentLevel = currentLevel;
+        //powerBar = powerBarTransform.GetComponent<PowerBar>();
+        monsterMove.currentLevel = score;
     }
 	
 	
@@ -30,13 +31,14 @@ public class GameController : MonoBehaviour {
             SceneManager.LoadScene("Scene1");
         }
         if (monsterMove.makeNewMonster) {
-            currentLevel++;
-            //monsterMove.makeNewMonster = false;
+            if (powerBar.powerBarColor == PowerBar.E_COLOR.GREEN) {
+                score++;
+            }
             Destroy(currentMonster.gameObject);
             currentMonster = (Instantiate(defaultMonsterPrefab, monsterSpawnLocation) as GameObject).transform;
             currentMonster.parent = null;
             monsterMove = currentMonster.GetComponent<MonsterMove>();
-            monsterMove.currentLevel = currentLevel;
+            monsterMove.currentLevel = score;
             powerBar.currentMonster = currentMonster;
             powerBar.monsterMove = monsterMove;
             playerHit.currentMonster = currentMonster;
