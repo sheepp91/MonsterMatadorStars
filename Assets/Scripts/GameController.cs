@@ -12,6 +12,8 @@ public class GameController : MonoBehaviour {
 	
 	
 	void Update () {
-		
+		if (Input.GetKeyDown("r")) {
+            Application.LoadLevel(Application.loadedLevel);
+        }
 	}
 }
