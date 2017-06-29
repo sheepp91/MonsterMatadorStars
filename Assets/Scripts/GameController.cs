@@ -20,6 +20,8 @@ public class GameController : MonoBehaviour {
         monsterMove = currentMonster.GetComponent<MonsterMove>();
         player = GameObject.FindWithTag("Player").transform;
         playerHit = player.GetComponent<PlayerHit>();
+
+        monsterMove.currentLevel = currentLevel;
     }
 	
 	
@@ -28,11 +30,13 @@ public class GameController : MonoBehaviour {
             SceneManager.LoadScene("Scene1");
         }
         if (monsterMove.makeNewMonster) {
+            currentLevel++;
             //monsterMove.makeNewMonster = false;
             Destroy(currentMonster.gameObject);
             currentMonster = (Instantiate(defaultMonsterPrefab, monsterSpawnLocation) as GameObject).transform;
             currentMonster.parent = null;
             monsterMove = currentMonster.GetComponent<MonsterMove>();
+            monsterMove.currentLevel = currentLevel;
             powerBar.currentMonster = currentMonster;
             powerBar.monsterMove = monsterMove;
             playerHit.currentMonster = currentMonster;

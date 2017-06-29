@@ -7,7 +7,7 @@ public class MonsterMove : MonoBehaviour {
 
     public GameController gameController;
     private Transform player;
-    public float speed;
+    public float speed, levelSpeedAlteration;
     public Transform monsterStopAfterHitPosition;
     public Transform monsterStopAfterMissPosition;
     public float percentageOfJourney;
@@ -18,6 +18,8 @@ public class MonsterMove : MonoBehaviour {
     public bool hitPlayer = false;
     [HideInInspector]
     public bool makeNewMonster = false;
+    [HideInInspector]
+    public int currentLevel;
 
     private PowerBar powerBarScript;
     private Vector3 playerPos;
@@ -44,7 +46,7 @@ public class MonsterMove : MonoBehaviour {
     }
 
     void Update() {
-        float distCovered = (Time.time - startTime) * speed;
+        float distCovered = (Time.time - startTime) * (speed + (currentLevel * levelSpeedAlteration));
         float fracJourneyIfHit = distCovered / journeyLengthIfHit;
         float fracJourneyIfMiss = distCovered / journeyLengthIfMiss;
 
@@ -73,10 +75,6 @@ public class MonsterMove : MonoBehaviour {
 
             if (transform.position.x == monsterStopAfterMissPosition.position.x) {
                 makeNewMonster = true;
-                //timer += Time.deltaTime;
-                //if (timer >= endGameTimer) {
-                //    Destroy(this.gameObject);
-                //}
             }
         }
     }
