@@ -5,8 +5,9 @@ using UnityEngine;
 public class MonsterMove : MonoBehaviour {
 
     public GameController gameController;
-    public Transform player;
+    private Transform player;
     public float speed;
+    public Transform monsterStopPosition;
     public float percentageOfJourney;
 
     [HideInInspector]
@@ -20,10 +21,10 @@ public class MonsterMove : MonoBehaviour {
     private float distanceToPlayer;
 
     void Start() {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         playerPos = player.position;
         initialMonsterPos = transform.position;
-        finalPos = playerPos;
-        finalPos.x += 5;
+        finalPos = monsterStopPosition.position;
         startTime = Time.time;
         journeyLength = Vector3.Distance(initialMonsterPos, finalPos);
         distanceToPlayer = Vector3.Distance(initialMonsterPos, playerPos);
@@ -32,10 +33,15 @@ public class MonsterMove : MonoBehaviour {
     void Update() {
         float distCovered = (Time.time - startTime) * speed;
         float fracJourney = distCovered / journeyLength;
+
+        // Monster will keep running off screen
         transform.position = Vector3.Lerp(initialMonsterPos, finalPos, fracJourney);
 
+        // Percentage between where monster is, and total distance between
+        // where the monster started and where the player is.
         percentageOfJourney = distCovered / distanceToPlayer;
 
+        // If percentage if journey reaches 100%, the monster hit the player
         if (percentageOfJourney > 1.0f) {
             hitPlayer = true;
         }
