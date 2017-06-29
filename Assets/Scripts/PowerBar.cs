@@ -21,8 +21,10 @@ public class PowerBar : MonoBehaviour {
     public E_COLOR powerBarColor = E_COLOR.RED;
 
     private float Perfect = 90;
-    private MonsterMove monsterMove;
-    private Transform currentMonster;
+    [HideInInspector]
+    public MonsterMove monsterMove;
+    [HideInInspector]
+    public Transform currentMonster;
 
     private float greenStart;
 
@@ -83,10 +85,12 @@ public class PowerBar : MonoBehaviour {
         LoadingBar.GetComponent<Image>().fillAmount = currentAmount / 100;
     }
 
-    void newLevelReset() {
+    public void nextLevelReset() {
         pressed = false;
         powerBarColor = E_COLOR.RED;
-        greenStart = Random.Range(greenStartRange, greenEndRange);
+        currentAmount = 0f;
         LoadingBar.GetComponent<Image>().fillAmount = 0.0f;
+        greenStart = Random.Range(greenStartRange, greenEndRange);
+        
     }
 }
