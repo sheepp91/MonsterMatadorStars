@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class PlayerHit : MonoBehaviour {
 
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.CompareTag("Monster")) {
-            print("Hit");
-        }
+    private Transform currentMonster;
+    private MonsterMove monsterMove;
 
+    void Start() {
+        currentMonster = GameObject.FindWithTag("Monster").transform;
+        monsterMove = currentMonster.GetComponent<MonsterMove>();
+    }
+
+    void Update() {
+        if (currentMonster.GetComponent<MonsterMove>().hitPlayer) {
+            print("Player Got Hit!");
+        }
     }
 }
