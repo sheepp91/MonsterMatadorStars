@@ -4,13 +4,28 @@ using UnityEngine;
 
 public class PlayerHit : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public float flyOffSpeed;
+    public float flyOffSpinSpeed;
+
+    private Transform currentMonster;
+    private MonsterMove monsterMove;
+
+    void Start() {
+        currentMonster = GameObject.FindWithTag("Monster").transform;
+        monsterMove = currentMonster.GetComponent<MonsterMove>();
+    }
+
+    void Update() {
+        if (monsterMove.hitPlayer) {
+            print("Player Got Hit!");
+            Vector3 tempPos = transform.position;
+            tempPos.x += flyOffSpeed;
+            tempPos.y += flyOffSpeed;
+            transform.position = tempPos;
+
+            Vector3 tempRot = transform.rotation.eulerAngles;
+            tempRot.z -= flyOffSpinSpeed;
+            transform.rotation = Quaternion.Euler(tempRot);
+        }
+    }
 }
