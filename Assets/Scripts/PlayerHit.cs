@@ -7,8 +7,10 @@ public class PlayerHit : MonoBehaviour {
     public float flyOffSpeed;
     public float flyOffSpinSpeed;
 
-    private Transform currentMonster;
-    private MonsterMove monsterMove;
+    [HideInInspector]
+    public MonsterMove monsterMove;
+    [HideInInspector]
+    public Transform currentMonster;
 
     void Start() {
         currentMonster = GameObject.FindWithTag("Monster").transform;
