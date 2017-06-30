@@ -12,12 +12,13 @@ public class PowerBar : MonoBehaviour {
         GREEN
     };
 
+    public Transform player;
     public Transform LoadingBar;
     public float greenStartRange = 30.0f;
     public float greenEndRange = 70.0f;
     public float greenSize = 10.0f;
     public float blueRange = 10.0f;
-
+    Animator anim;
     public E_COLOR powerBarColor = E_COLOR.RED;
 
     private float Perfect = 90;
@@ -28,6 +29,7 @@ public class PowerBar : MonoBehaviour {
 
     private float greenStart;
 
+    bool flagRaise = false;
     bool pressed = false;
     [SerializeField] private float currentAmount;
     [SerializeField]public float speed;
@@ -36,9 +38,10 @@ public class PowerBar : MonoBehaviour {
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         currentMonster = GameObject.FindWithTag("Monster").transform;
         monsterMove = currentMonster.GetComponent<MonsterMove>();
-
+        anim = player.GetComponent<Animator>();
         greenStart = Random.Range(greenStartRange, greenEndRange);
     }
 	void Update () {
@@ -52,6 +55,7 @@ public class PowerBar : MonoBehaviour {
         if (Input.GetKeyDown("space")) {
             LoadingBar.GetComponent<Image>().fillAmount = currentAmount;
             pressed = true;
+            anim.Play("RaiseFlag");
 
             if (currentAmount > greenStart && currentAmount < greenStart + greenSize) {
                 powerBarColor = E_COLOR.GREEN;
@@ -68,7 +72,7 @@ public class PowerBar : MonoBehaviour {
             if (!pressed) {
                 currentAmount = monsterMove.percentageOfJourney * 100;
             }
-        }
+        } 
     }
 
     void powerBarColour() {
@@ -93,4 +97,5 @@ public class PowerBar : MonoBehaviour {
         greenStart = Random.Range(greenStartRange, greenEndRange);
         
     }
+   
 }
