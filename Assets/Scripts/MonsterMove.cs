@@ -31,7 +31,7 @@ public class MonsterMove : MonoBehaviour {
     private float journeyLengthIfMiss;
     private float distanceToPlayer;
     private float timer;
-
+    bool pressed;
     
 
     void Start() {
@@ -53,38 +53,44 @@ public class MonsterMove : MonoBehaviour {
     }
 
     void Update() {
-        float distCovered = (Time.time - startTime) * (speed + (currentLevel * levelSpeedAlteration));
-        float fracJourneyIfHit = distCovered / journeyLengthIfHit;
-        float fracJourneyIfMiss = distCovered / journeyLengthIfMiss;
+        if (Input.GetKeyDown("space")) {
+            pressed = true;
+        }
+        if (pressed) {
+            float distCovered = (Time.time - startTime) * (speed + (currentLevel * levelSpeedAlteration));
+            float fracJourneyIfHit = distCovered / journeyLengthIfHit;
+            float fracJourneyIfMiss = distCovered / journeyLengthIfMiss;
 
-        // Percentage between where monster is, and total distance between
-        // where the monster started and where the player is.
-        percentageOfJourney = distCovered / distanceToPlayer;
-        
-        //playSoundsScript.playSounds();
-            
-        // If percentage if journey reaches 100%, the monster hit the player
-        if (percentageOfJourney >= 1.0f && powerBarScript.powerBarColor == PowerBar.E_COLOR.RED) {
-            hitPlayer = true;
-            
-            transform.position = Vector3.Lerp(initialMonsterPos, monsterStopAfterHitPosition.position, fracJourneyIfHit);
+            // Percentage between where monster is, and total distance between
+            // where the monster started and where the player is.
+            percentageOfJourney = distCovered / distanceToPlayer;
 
-            if (transform.position.x == monsterStopAfterHitPosition.position.x) {
-                timer += Time.deltaTime;
-                if (timer >= endGameTimer) {
-                    print("Press space to restart game");
-                    if (Input.GetKeyDown("space")) {
-                        SceneManager.LoadScene("Scene1");
+            // playSoundsScript.playSounds();
+
+            // If percentage if journey reaches 100%, the monster hit the player
+            if (percentageOfJourney >= 1.0f && powerBarScript.powerBarColor == PowerBar.E_COLOR.RED) {
+                hitPlayer = true;
+
+                transform.position = Vector3.Lerp(initialMonsterPos, monsterStopAfterHitPosition.position, fracJourneyIfHit);
+
+                if (transform.position.x == monsterStopAfterHitPosition.position.x) {
+                    timer += Time.deltaTime;
+                    if (timer >= endGameTimer) {
+                        print("Press space to restart game");
+                        if (Input.GetKeyDown("space")) {
+                            SceneManager.LoadScene("Scene1");
+                        }
                     }
                 }
+
             }
+            else {
+                // Monster will keep running off screen
+                transform.position = Vector3.Lerp(initialMonsterPos, monsterStopAfterMissPosition.position, fracJourneyIfMiss);
 
-        } else {
-            // Monster will keep running off screen
-            transform.position = Vector3.Lerp(initialMonsterPos, monsterStopAfterMissPosition.position, fracJourneyIfMiss);
-
-            if (transform.position.x == monsterStopAfterMissPosition.position.x) {
-                makeNewMonster = true;
+                if (transform.position.x == monsterStopAfterMissPosition.position.x) {
+                    makeNewMonster = true;
+                }
             }
         }
     }

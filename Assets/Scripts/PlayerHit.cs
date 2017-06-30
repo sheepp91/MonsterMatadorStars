@@ -23,7 +23,7 @@ public class PlayerHit : MonoBehaviour {
 
     void Update() {
         if (monsterMove.hitPlayer) {
-            fail.Play();
+           // fail.Play();
             Debug.Log(fail.isPlaying);
             Vector3 tempPos = transform.position;
             tempPos.x += flyOffSpeed;
