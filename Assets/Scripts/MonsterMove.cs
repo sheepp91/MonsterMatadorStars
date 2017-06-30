@@ -10,8 +10,9 @@ public class MonsterMove : MonoBehaviour {
     public float speed, levelSpeedAlteration;
     public Transform monsterStopAfterHitPosition;
     public Transform monsterStopAfterMissPosition;
-    public float percentageOfJourney;
+    public Transform sounds;
     public Transform powerBar;
+    public float percentageOfJourney;
     public float endGameTimer = 3f;
 
     [HideInInspector]
@@ -21,6 +22,7 @@ public class MonsterMove : MonoBehaviour {
     [HideInInspector]
     public int currentLevel;
 
+    private PlaySounds playSoundsScript;
     private PowerBar powerBarScript;
     private Vector3 playerPos;
     private Vector3 initialMonsterPos;
@@ -30,20 +32,16 @@ public class MonsterMove : MonoBehaviour {
     private float distanceToPlayer;
     private float timer;
 
-    AudioSource[] monstersteps;
-    AudioSource step1;
-    AudioSource step2;
-    AudioSource step3;
-    AudioSource step4;
-    AudioSource step5;
-
+    
 
     void Start() {
-        monstersteps = GetComponents<AudioSource>();
+        
         player = GameObject.FindGameObjectWithTag("Player").transform;
         monsterStopAfterMissPosition = GameObject.FindGameObjectWithTag("MonsterStopAfterMiss").transform;
         monsterStopAfterHitPosition = GameObject.FindGameObjectWithTag("MonsterStopAfterHit").transform;
         powerBar = GameObject.FindGameObjectWithTag("PowerBar").transform;
+        sounds = GameObject.FindGameObjectWithTag("GameController").transform;
+        playSoundsScript = sounds.GetComponent<PlaySounds>();
         playerPos = player.position;
         initialMonsterPos = transform.position;
         //finalPos = monsterStopPosition.position;
@@ -62,7 +60,9 @@ public class MonsterMove : MonoBehaviour {
         // Percentage between where monster is, and total distance between
         // where the monster started and where the player is.
         percentageOfJourney = distCovered / distanceToPlayer;
-        monster.Play();
+        
+        playSoundsScript.playSounds();
+            
         // If percentage if journey reaches 100%, the monster hit the player
         if (percentageOfJourney >= 1.0f && powerBarScript.powerBarColor == PowerBar.E_COLOR.RED) {
             hitPlayer = true;
