@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 75360b853ab1fb540bc4415c4b454b44
-timeCreated: 1498784155
+guid: 637d6d80c3ac93b469b16ff11ce52b77
+timeCreated: 1498786282
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
-    21300000: minotaur_spritesheet_0
-    21300002: minotaur_spritesheet_1
-    21300004: minotaur_spritesheet_2
-    21300006: minotaur_spritesheet_3
-    21300008: minotaur_spritesheet_4
-    21300010: minotaur_spritesheet_5
+    21300000: minotaur_spritesheet 1_0
+    21300002: minotaur_spritesheet 1_1
+    21300004: minotaur_spritesheet 1_2
+    21300006: minotaur_spritesheet 1_3
+    21300008: minotaur_spritesheet 1_4
+    21300010: minotaur_spritesheet 1_5
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -100,78 +100,78 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: minotaur_spritesheet_0
+      name: minotaur_spritesheet 1_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 453
-        width: 228
-        height: 288
+        x: 313
+        y: 553
+        width: 140
+        height: 178
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: minotaur_spritesheet_1
+      name: minotaur_spritesheet 1_1
       rect:
         serializedVersion: 2
-        x: 245
-        y: 453
-        width: 253
-        height: 288
+        x: 23
+        y: 286
+        width: 155
+        height: 178
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: minotaur_spritesheet_2
+      name: minotaur_spritesheet 1_2
       rect:
         serializedVersion: 2
-        x: 506
-        y: 453
-        width: 284
-        height: 281
+        x: 304
+        y: 284
+        width: 135
+        height: 181
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: minotaur_spritesheet_3
+      name: minotaur_spritesheet 1_3
       rect:
         serializedVersion: 2
-        x: 44
-        y: 82
-        width: 231
-        height: 293
+        x: 565
+        y: 283
+        width: 175
+        height: 173
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: minotaur_spritesheet_4
+      name: minotaur_spritesheet 1_4
       rect:
         serializedVersion: 2
-        x: 408
-        y: 30
-        width: 330
-        height: 287
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: minotaur_spritesheet_5
-      rect:
-        serializedVersion: 2
-        x: 659
+        x: 0
         y: 10
-        width: 13
-        height: 8
+        width: 207
+        height: 159
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: minotaur_spritesheet 1_5
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 9
+        width: 207
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
