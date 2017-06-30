@@ -52,9 +52,9 @@ public class GameController : MonoBehaviour {
             playerHit.currentMonster = currentMonster;
             playerHit.monsterMove = monsterMove;
             powerBar.nextLevelReset();
-            scoreText.text = "Score: " + score;
+            scoreText.text = "" + score;
         }
-        if (monsterMove.start && titles.anchoredPosition.y < 50000f) {
+        if (monsterMove.start && titles.anchoredPosition.y < 70000f) {
             Vector2 temp = titles.position;
             temp.y += 500f;
             titles.anchoredPosition += temp;

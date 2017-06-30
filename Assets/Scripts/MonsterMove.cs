@@ -22,6 +22,10 @@ public class MonsterMove : MonoBehaviour {
     [HideInInspector]
     public int currentLevel;
 
+    AudioSource[] monstersteps;
+    AudioSource step1;
+    AudioSource step2;
+
     private PlaySounds playSoundsScript;
     private PowerBar powerBarScript;
     private Vector3 playerPos;
@@ -38,10 +42,13 @@ public class MonsterMove : MonoBehaviour {
     public Camera cam;
     float shake = 0;
     float shakeAmount = .7f;
-    float decreaseFactor = 1.0f;
+    float decreaseFactor = 1.7f;
 
     void Start() {
 
+        monstersteps = GetComponents<AudioSource>();
+        step1 = monstersteps[0];
+        step2 = monstersteps[1];
         cam = Camera.main;
         anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -63,10 +70,14 @@ public class MonsterMove : MonoBehaviour {
     }
 
     void Update() {
+        
         if (Input.GetKeyDown(KeyCode.Return)) {
             start = true;
+            step1.Play();
+            step2.PlayDelayed(.5f);
         }
         if (start) {
+            
             timer2 += Time.deltaTime;
             float distCovered = (timer2) * (speed + (currentLevel * levelSpeedAlteration));
             float fracJourneyIfHit = distCovered / journeyLengthIfHit;
@@ -75,8 +86,9 @@ public class MonsterMove : MonoBehaviour {
             // Percentage between where monster is, and total distance between
             // where the monster started and where the player is.
             percentageOfJourney = distCovered / distanceToPlayer;
-            
-            // playSoundsScript.playSounds();
+
+           
+            //playSoundsScript.playSounds();
 
             // If percentage if journey reaches 100%, the monster hit the player
             if (percentageOfJourney >= 1.0f && powerBarScript.powerBarColor == PowerBar.E_COLOR.RED) {
