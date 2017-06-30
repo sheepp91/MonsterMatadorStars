@@ -11,14 +11,20 @@ public class PlayerHit : MonoBehaviour {
     public MonsterMove monsterMove;
     [HideInInspector]
     public Transform currentMonster;
+    public Transform cam;
+    AudioSource fail;
 
     void Start() {
+
+        fail = GetComponent<AudioSource>();
         currentMonster = GameObject.FindWithTag("Monster").transform;
         monsterMove = currentMonster.GetComponent<MonsterMove>();
     }
 
     void Update() {
         if (monsterMove.hitPlayer) {
+            fail.Play();
+            Debug.Log(fail.isPlaying);
             Vector3 tempPos = transform.position;
             tempPos.x += flyOffSpeed;
             tempPos.y += flyOffSpeed;

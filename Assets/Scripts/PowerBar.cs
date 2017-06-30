@@ -18,17 +18,20 @@ public class PowerBar : MonoBehaviour {
     public float greenEndRange = 70.0f;
     public float greenSize = 10.0f;
     public float blueRange = 10.0f;
-    Animator anim;
     public E_COLOR powerBarColor = E_COLOR.RED;
 
+    AudioSource greenFlag;
+    AudioSource BlueFlag;
+    AudioSource Fail;
+    Animator anim;
+
+    private float greenStart;
     private float Perfect = 90;
     [HideInInspector]
     public MonsterMove monsterMove;
     [HideInInspector]
     public Transform currentMonster;
-
-    private float greenStart;
-
+    
     bool flagRaise = false;
     bool pressed = false;
     [SerializeField] private float currentAmount;
@@ -38,11 +41,15 @@ public class PowerBar : MonoBehaviour {
 
     void Start()
     {
+        AudioSource[] audios = GetComponents<AudioSource>();
+        greenFlag = audios[0];
+        BlueFlag = audios[1];   
         player = GameObject.FindGameObjectWithTag("Player").transform;
         currentMonster = GameObject.FindWithTag("Monster").transform;
         monsterMove = currentMonster.GetComponent<MonsterMove>();
         anim = player.GetComponent<Animator>();
         greenStart = Random.Range(greenStartRange, greenEndRange);
+        
     }
 	void Update () {
 
@@ -56,13 +63,14 @@ public class PowerBar : MonoBehaviour {
             LoadingBar.GetComponent<Image>().fillAmount = currentAmount;
             pressed = true;
             anim.Play("RaiseFlag");
-
             if (currentAmount > greenStart && currentAmount < greenStart + greenSize) {
                 powerBarColor = E_COLOR.GREEN;
+                greenFlag.Play();
                 print("GREEN");
             } else if (currentAmount > greenStart - blueRange && currentAmount < greenStart + greenSize + blueRange) {
                 powerBarColor = E_COLOR.BLUE;
                 print("BLUE");
+                BlueFlag.Play();
             } else {
                 powerBarColor = E_COLOR.RED;
                 print("RED");
@@ -80,6 +88,7 @@ public class PowerBar : MonoBehaviour {
             setUpTimer();
             if (currentAmount > greenStart && currentAmount < greenStart + greenSize) {
                 LoadingBar.GetComponent<Image>().color = new Color32(0, 255, 0, 255); // Green
+
             } else if (currentAmount > greenStart - blueRange && currentAmount < greenStart + greenSize + blueRange) {
                 LoadingBar.GetComponent<Image>().color = new Color32(0, 09, 255, 255); // Blue
             } else {
