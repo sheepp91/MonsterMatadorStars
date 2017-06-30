@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
@@ -11,6 +12,7 @@ public class GameController : MonoBehaviour {
     public Transform monsterSpawnLocation;
     public GameObject defaultMonsterPrefab;
     public RectTransform titles;
+    public Text scoreText;
 
     private Transform currentMonster;
     private MonsterMove monsterMove;
@@ -46,6 +48,7 @@ public class GameController : MonoBehaviour {
             playerHit.currentMonster = currentMonster;
             playerHit.monsterMove = monsterMove;
             powerBar.nextLevelReset();
+            scoreText.text = "Score: " + score;
         }
         if (monsterMove.start && titles.anchoredPosition.y < 50000f) {
             Vector2 temp = titles.position;
