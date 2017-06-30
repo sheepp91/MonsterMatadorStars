@@ -73,8 +73,7 @@ public class MonsterMove : MonoBehaviour {
         
         if (Input.GetKeyDown(KeyCode.Return)) {
             start = true;
-            step1.Play();
-            step2.PlayDelayed(.5f);
+           
         }
         if (start) {
             

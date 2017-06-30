@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour {
         playerHit = player.GetComponent<PlayerHit>();
         //powerBar = powerBarTransform.GetComponent<PowerBar>();
         monsterMove.currentLevel = score;
+        scoreText.enabled = false;
     }
 
 
@@ -52,13 +53,16 @@ public class GameController : MonoBehaviour {
             playerHit.currentMonster = currentMonster;
             playerHit.monsterMove = monsterMove;
             powerBar.nextLevelReset();
-            scoreText.text = "" + score;
+            scoreText.text = "Score: " + score;
         }
         if (monsterMove.start && titles.anchoredPosition.y < 70000f) {
             Vector2 temp = titles.position;
             temp.y += 500f;
             titles.anchoredPosition += temp;
         }
-    }  
+        else if (monsterMove.start && titles.anchoredPosition.y >= 70000f) {
+            scoreText.enabled = true;
+        }
+    }
 }
 
