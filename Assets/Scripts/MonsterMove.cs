@@ -33,11 +33,13 @@ public class MonsterMove : MonoBehaviour {
     private float timer;
     [HideInInspector]
     public float timer2;
-    
-    
+    Animator anim;
+
+
 
     void Start() {
-        
+
+        anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         monsterStopAfterMissPosition = GameObject.FindGameObjectWithTag("MonsterStopAfterMiss").transform;
         monsterStopAfterHitPosition = GameObject.FindGameObjectWithTag("MonsterStopAfterHit").transform;
@@ -90,6 +92,8 @@ public class MonsterMove : MonoBehaviour {
             }
             else {
                 // Monster will keep running off screen
+                if (powerBarScript.powerBarColor == PowerBar.E_COLOR.GREEN)
+                    anim.Play("MinoUn");
                 transform.position = Vector3.Lerp(initialMonsterPos, monsterStopAfterMissPosition.position, fracJourneyIfMiss);
 
                 if (transform.position.x == monsterStopAfterMissPosition.position.x) {
