@@ -61,7 +61,7 @@ public class MonsterMove : MonoBehaviour {
         // where the monster started and where the player is.
         percentageOfJourney = distCovered / distanceToPlayer;
         
-        playSoundsScript.playSounds();
+        //playSoundsScript.playSounds();
             
         // If percentage if journey reaches 100%, the monster hit the player
         if (percentageOfJourney >= 1.0f && powerBarScript.powerBarColor == PowerBar.E_COLOR.RED) {
