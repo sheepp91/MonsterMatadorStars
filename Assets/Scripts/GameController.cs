@@ -13,13 +13,16 @@ public class GameController : MonoBehaviour {
     public GameObject defaultMonsterPrefab;
     public RectTransform titles;
     public Text scoreText;
-
     private Transform currentMonster;
     private MonsterMove monsterMove;
     private Transform player;
     private PlayerHit playerHit;
+    float shake = 0;
+    float shakeAmount = 0.7f;
+    float decreaseFactor = 1.0f;
 
-    void Start () {
+    void Start() {
+       
         currentMonster = GameObject.FindWithTag("Monster").transform;
         monsterMove = currentMonster.GetComponent<MonsterMove>();
         player = GameObject.FindWithTag("Player").transform;
@@ -27,10 +30,11 @@ public class GameController : MonoBehaviour {
         //powerBar = powerBarTransform.GetComponent<PowerBar>();
         monsterMove.currentLevel = score;
     }
-	
-	
-	void Update () {
-		if (Input.GetKeyDown("r")) {
+
+
+    void Update() {
+
+        if (Input.GetKeyDown("r")) {
             SceneManager.LoadScene("Scene1");
         }
         if (monsterMove.makeNewMonster) {
@@ -55,5 +59,6 @@ public class GameController : MonoBehaviour {
             temp.y += 500f;
             titles.anchoredPosition += temp;
         }
-	}
+    }  
 }
+
