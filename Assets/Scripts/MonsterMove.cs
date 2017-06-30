@@ -31,14 +31,18 @@ public class MonsterMove : MonoBehaviour {
     private float journeyLengthIfMiss;
     private float distanceToPlayer;
     private float timer;
+    float shakeTimer;
     [HideInInspector]
     public float timer2;
     Animator anim;
-
-
+    public Camera cam;
+    float shake = 0;
+    float shakeAmount = .7f;
+    float decreaseFactor = 1.0f;
 
     void Start() {
 
+        cam = Camera.main;
         anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         monsterStopAfterMissPosition = GameObject.FindGameObjectWithTag("MonsterStopAfterMiss").transform;
@@ -55,6 +59,7 @@ public class MonsterMove : MonoBehaviour {
         distanceToPlayer = Vector3.Distance(initialMonsterPos, playerPos);
         powerBarScript = powerBar.GetComponent <PowerBar>();
         percentageOfJourney = 0;
+
     }
 
     void Update() {
@@ -76,7 +81,22 @@ public class MonsterMove : MonoBehaviour {
             // If percentage if journey reaches 100%, the monster hit the player
             if (percentageOfJourney >= 1.0f && powerBarScript.powerBarColor == PowerBar.E_COLOR.RED) {
                 hitPlayer = true;
-
+                if (shakeTimer <= 0f) {
+                    shake = 1;
+                }
+                if (shake > 0) {
+                    Vector3 temp = Random.insideUnitSphere * shakeAmount;
+                    temp.z = -10;
+                    cam.transform.position = temp;
+                    shake -= Time.deltaTime * decreaseFactor;
+                    print(shake);
+                    shakeTimer += Time.deltaTime;
+                    if (shakeTimer > 3.0f)
+                        shake = 0;
+                }
+                else {
+                    shake = 0.0f;
+                }
                 transform.position = Vector3.Lerp(initialMonsterPos, monsterStopAfterHitPosition.position, fracJourneyIfHit);
 
                 if (transform.position.x == monsterStopAfterHitPosition.position.x) {
