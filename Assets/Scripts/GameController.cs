@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour {
     //public Transform powerBarTransform;
     public Transform monsterSpawnLocation;
     public GameObject defaultMonsterPrefab;
+    public RectTransform titles;
 
     private Transform currentMonster;
     private MonsterMove monsterMove;
@@ -39,11 +40,17 @@ public class GameController : MonoBehaviour {
             currentMonster.parent = null;
             monsterMove = currentMonster.GetComponent<MonsterMove>();
             monsterMove.currentLevel = score;
+            monsterMove.start = true;
             powerBar.currentMonster = currentMonster;
             powerBar.monsterMove = monsterMove;
             playerHit.currentMonster = currentMonster;
             playerHit.monsterMove = monsterMove;
             powerBar.nextLevelReset();
+        }
+        if (monsterMove.start && titles.anchoredPosition.y < 50000f) {
+            Vector2 temp = titles.position;
+            temp.y += 500f;
+            titles.anchoredPosition += temp;
         }
 	}
 }

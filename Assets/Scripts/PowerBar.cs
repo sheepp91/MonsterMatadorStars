@@ -59,28 +59,33 @@ public class PowerBar : MonoBehaviour {
 
     void setUpTimer()
     {
-        if (Input.GetKeyDown("space")) {
-            LoadingBar.GetComponent<Image>().fillAmount = currentAmount;
-            pressed = true;
-            anim.Play("RaiseFlag");
-            if (currentAmount > greenStart && currentAmount < greenStart + greenSize) {
-                powerBarColor = E_COLOR.GREEN;
-                greenFlag.Play();
-                print("GREEN");
-            } else if (currentAmount > greenStart - blueRange && currentAmount < greenStart + greenSize + blueRange) {
-                powerBarColor = E_COLOR.BLUE;
-                print("BLUE");
-                BlueFlag.Play();
-            } else {
-                powerBarColor = E_COLOR.RED;
-                print("RED");
+        if (monsterMove.start) {
+            if (Input.GetKeyDown("space")) {
+                LoadingBar.GetComponent<Image>().fillAmount = currentAmount;
+                pressed = true;
+                anim.Play("RaiseFlag");
+                if (currentAmount > greenStart && currentAmount < greenStart + greenSize) {
+                    powerBarColor = E_COLOR.GREEN;
+                    greenFlag.Play();
+                    print("GREEN");
+                }
+                else if (currentAmount > greenStart - blueRange && currentAmount < greenStart + greenSize + blueRange) {
+                    powerBarColor = E_COLOR.BLUE;
+                    print("BLUE");
+                    BlueFlag.Play();
+                }
+                else {
+                    powerBarColor = E_COLOR.RED;
+                    print("RED");
+                }
+            }
+            else {
+                if (!pressed) {
+                    currentAmount = monsterMove.percentageOfJourney * 100;
+                    //Debug.Log(monsterMove.percentageOfJourney);
+                }
             }
         }
-        else{
-            if (!pressed) {
-                currentAmount = monsterMove.percentageOfJourney * 100;
-            }
-        } 
     }
 
     void powerBarColour() {

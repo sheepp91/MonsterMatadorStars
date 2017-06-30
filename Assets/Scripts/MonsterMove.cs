@@ -14,7 +14,7 @@ public class MonsterMove : MonoBehaviour {
     public Transform powerBar;
     public float percentageOfJourney;
     public float endGameTimer = 3f;
-
+    public bool start;
     [HideInInspector]
     public bool hitPlayer = false;
     [HideInInspector]
@@ -26,12 +26,14 @@ public class MonsterMove : MonoBehaviour {
     private PowerBar powerBarScript;
     private Vector3 playerPos;
     private Vector3 initialMonsterPos;
-    private float startTime;
+    //private float startTime;
     private float journeyLengthIfHit;
     private float journeyLengthIfMiss;
     private float distanceToPlayer;
     private float timer;
-    bool pressed;
+    [HideInInspector]
+    public float timer2;
+    
     
 
     void Start() {
@@ -45,26 +47,28 @@ public class MonsterMove : MonoBehaviour {
         playerPos = player.position;
         initialMonsterPos = transform.position;
         //finalPos = monsterStopPosition.position;
-        startTime = Time.time;
+        //startTime = Time.time;
         journeyLengthIfHit = Vector3.Distance(initialMonsterPos, monsterStopAfterHitPosition.position);
         journeyLengthIfMiss = Vector3.Distance(initialMonsterPos, monsterStopAfterMissPosition.position);
         distanceToPlayer = Vector3.Distance(initialMonsterPos, playerPos);
         powerBarScript = powerBar.GetComponent <PowerBar>();
+        percentageOfJourney = 0;
     }
 
     void Update() {
-        if (Input.GetKeyDown("space")) {
-            pressed = true;
+        if (Input.GetKeyDown(KeyCode.Return)) {
+            start = true;
         }
-        if (pressed) {
-            float distCovered = (Time.time - startTime) * (speed + (currentLevel * levelSpeedAlteration));
+        if (start) {
+            timer2 += Time.deltaTime;
+            float distCovered = (timer2) * (speed + (currentLevel * levelSpeedAlteration));
             float fracJourneyIfHit = distCovered / journeyLengthIfHit;
             float fracJourneyIfMiss = distCovered / journeyLengthIfMiss;
 
             // Percentage between where monster is, and total distance between
             // where the monster started and where the player is.
             percentageOfJourney = distCovered / distanceToPlayer;
-
+            
             // playSoundsScript.playSounds();
 
             // If percentage if journey reaches 100%, the monster hit the player
@@ -93,5 +97,5 @@ public class MonsterMove : MonoBehaviour {
                 }
             }
         }
-    }
+   }
 }
